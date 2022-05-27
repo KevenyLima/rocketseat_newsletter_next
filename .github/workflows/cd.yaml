@@ -41,10 +41,10 @@ jobs:
           id: docker_build
           uses: docker/build-push-action@v2
           with:
+            context: ./app/container
+            file: ./app/container/Dockerfile
             push: true
-            context: .
-            file: ./app/container/dockerfile
-            platforms: linux/amd64,linux/arm64
+            platforms: linux/amd64
             tags: keveny/next_application:${{ steps.tagging.outputs.new_version }}
 # ------------------------------------------------------------------------------------
         # - name: Install doctl
