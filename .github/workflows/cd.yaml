@@ -60,7 +60,7 @@ jobs:
           with:
             task-definition: task-definition.json
             container-name: my-container
-            image: ${{ steps.build-image.outputs.image }}
+            image: keveny/${{ steps.tagging.outputs.new_version }}
 
         - name: Deploy Amazon ECS task definition
           uses: aws-actions/amazon-ecs-deploy-task-definition@v1
