@@ -54,30 +54,21 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET }}
             aws-region: sa-east-1
 # -------------------------------------------------------------------------------------------
-        # - name: Setup kubectl
-        #   uses: matootie/dokube@v1.3.2
-        #   with:
-        #     personalAccessToken: ${{ secrets.DIGITALOCEAN_TOKEN }}
-        #     clusterName: live-k8s
-        # - name: Fill in the new image ID in the Amazon ECS task definition
-        # id: task-def
-        # uses: aws-actions/amazon-ecs-render-task-definition@v1
-        # with:
-        #   task-definition: task-definition.json
-        #   container-name: my-container
-        #   image: ${{ steps.build-image.outputs.image }}
+        - name: Fill in the new image ID in the Amazon ECS task definition
+          id: task-def
+          uses: aws-actions/amazon-ecs-render-task-definition@v1
+          with:
+            task-definition: task-definition.json
+            container-name: my-container
+            image: ${{ steps.build-image.outputs.image }}
 
-        # - name: Deploy Amazon ECS task definition
-        #   uses: aws-actions/amazon-ecs-deploy-task-definition@v1
-        #   with:
-        #     task-definition: ${{ steps.task-def.outputs.task-definition }}
-        #     service: my-service
-        #     cluster: my-cluster
-        #     wait-for-service-stability: true
-
-
-
-        
-
+        - name: Deploy Amazon ECS task definition
+          uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+          with:
+            task-definition: ${{ steps.task-def.outputs.task-definition }}
+            service: my-service
+            cluster: my-cluster
+            wait-for-service-stability: true
+# --------------------------------------------------------------------------------------------------
         # - name: set deployment image
         #   run: kubectl set image deployment next_server_application  docker=keveny/next_application:${{ steps.tagging.outputs.new_version }}
