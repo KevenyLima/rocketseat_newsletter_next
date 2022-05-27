@@ -70,5 +70,3 @@ jobs:
             cluster: my-cluster
             wait-for-service-stability: true
 # --------------------------------------------------------------------------------------------------
-        # - name: set deployment image
-        #   run: kubectl set image deployment next_server_application  docker=keveny/next_application:${{ steps.tagging.outputs.new_version }}
